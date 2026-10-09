@@ -1,0 +1,60 @@
+# Add project specific ProGuard rules here.
+
+# LibXposed descriptors
+-adaptresourcefilecontents META-INF/kposex/java_init.list
+-adaptresourcefilecontents META-INF/kposex/scope.list
+
+# Keep LibXposed entry points
+-keep class com.framemirror.android.Api101ModuleMain { *; }
+-keep class io.github.libxposed.** { *; }
+
+# Keep Application Classes
+-keep class com.framemirror.android.** { *; }
+
+# Android Components
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+
+# Keep native methods
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# Keep View constructors
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+# Keep Parcelable
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+# ExoPlayer (Media3) - safety net for reflection-based class loading
+-keep class androidx.media3.** { *; }
+-dontwarn androidx.media3.**
+
+# Jetpack Compose
+-keep class androidx.compose.** { *; }
+-dontwarn androidx.compose.**
+
+# Kotlin
+-keep class kotlin.** { *; }
+-dontwarn kotlin.**
+
+# Optimization Attributes
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
+}
